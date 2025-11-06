@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-11-06T12:42:24+01:00",
+  "id": "bios-uefi-hardening",
+  "duration": 0,
+  "title": "Bastionado de BIOS/UEFI",
+  "summary": "Bastionado de BIOS/UEFI",
+  "source": "codelab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "codelab",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "bios-uefi-hardening"
+}
