@@ -1,0 +1,117 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Bastionado de BIOS/UEFI</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="bios-uefi-hardening"
+                  title="Bastionado de BIOS/UEFI"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="1. Introducción" duration="0">
+        <p>La <strong>BIOS (Basic Input/Output System)</strong> o su versión moderna <strong>UEFI (Unified Extensible Firmware Interface)</strong> es el primer software base que se ejecuta al encender el ordenador.<br> Su función principal es <strong>reconocer el hardware instalado</strong> y <strong>gestionar el arranque del sistema operativo</strong>.</p>
+<p>Si no configuramos bien este sofware, un atacante con acceso físico podría modificar el orden de arranque, usar un USB con herramientas externas o incluso restablecer la BIOS para obtener acceso al equipo.</p>
+<p>En esta guía se muestran los pasos para <strong>bastionar la BIOS/UEFI</strong>, es decir, configurarla para maximizar la seguridad del dispositivo.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="2. Configuración de seguridad paso a paso" duration="0">
+        <h2 is-upgraded>2.1. Establecer contraseña de administrador</h2>
+<ol type="1">
+<li>Enciende el equipo y accede a la BIOS/UEFI pulsando la tecla correspondiente en mi caso es el <code>F10</code>.</li>
+<li>En el menú principal, buscamos la pestaña <strong>Security</strong>.</li>
+<li>Selecciona <strong>Set Administrator Password</strong> o <strong>Supervisor Password</strong>.</li>
+<li>Introduce una contraseña robusta (mínimo 12 caracteres, combinando letras, números y símbolos).</li>
+<li>Siempre que hagamos un cambio en la BIOS tendremos que guardar los cambios.</li>
+</ol>
+<p>Esto hará que siempre te pida la contraseña antes de modificar cualquier parámetro de la BIOS.</p>
+<p class="image-container"><img alt="imagen de establecer contraseña de administrador" src="img\\cdc3a76baf817ff9.png"></p>
+<h2 is-upgraded>2.2. Establecer contraseña de usuario o de arranque (Power-On Password)</h2>
+<ol type="1">
+<li>Desde el mismo menú <strong>Security</strong>, selecciona <strong>Set User Password</strong> o <strong>Power-On Password</strong>.</li>
+<li>Escribe una contraseña distinta a la de administrador.</li>
+</ol>
+<p>Esta contraseña te la pedirá en cada inicio, impidiendo que terceros arranquen el equipo sin autorización. En la imagen anterior se puede ver donde cambiar la User Password.</p>
+<h2 is-upgraded>2.3. Deshabilitar el arranque desde dispositivos externos</h2>
+<p>Como dehabilitar el arranque desde dispositivos externos:</p>
+<ol type="1">
+<li>Accede al menú <strong>Boot</strong> o <strong>Arranque</strong>.</li>
+<li>Busca la opción <strong>Boot from USB</strong>, <strong>External Devices</strong> o similar.</li>
+<li>Cambia su valor a <strong>Disabled</strong>.</li>
+</ol>
+<p>Con estos cambios el equipo no podrá iniciarse desde memorias USB o DVD con sistemas no autorizados.</p>
+<p class="image-container"><img alt="imagen de como dehabilitar el arranque desde dispositivos externos" src="img\\d87817c38f0db1a4.png"></p>
+<h2 is-upgraded>2.4. Configurar un orden de arranque seguro</h2>
+<ol type="1">
+<li>Dentro del menú <strong>Boot Priority</strong> o <strong>Boot Order</strong>, verifica los dispositivos listados.</li>
+<li>Coloca el disco duro o SSD principal como <strong>primera opción</strong>.</li>
+<li>Desactiva (o coloca al final) otros medios de arranque como CD/DVD o USB.</li>
+</ol>
+<p>Le da la prioridad al ordenador de solo arrancar desde el disco donde está instalado el sistema operativo.</p>
+<p class="image-container"><img alt="Configurar un orden de arranque" src="img\\84d80ee2d5453dfd.png"></p>
+<h2 is-upgraded>2.5. Activar Secure Boot</h2>
+<ol type="1">
+<li>En el menú <strong>Boot → Secure Boot</strong>, cambia el estado a <strong>Enabled</strong>.</li>
+<li>Si aparece la opción <strong>Key Management</strong>, selecciona <strong>Install Default Keys</strong> para usar las claves oficiales del fabricante.</li>
+</ol>
+<p>Esto solo te permitirá arrancar software firmado y verificado digitalmente, como Windows o distribuciones Linux compatibles.</p>
+<p class="image-container"><img alt="como activar el Secure boot" src="img\\e78b3b6fbb6b2617.png"></p>
+<h2 is-upgraded>2.6. Otras opciones de seguridad recomendadas</h2>
+<ul>
+<li><strong>TPM (Trusted Platform Module):</strong> Activa esta función si está disponible. Permite almacenar claves de cifrado y mejora la seguridad del arranque.</li>
+<li><strong>Desactivar Wake-on-LAN:</strong> Evita que el equipo se encienda de forma remota.</li>
+<li><strong>Bloqueo físico de la carcasa:</strong> Algunos equipos permiten proteger con llave el acceso interno para evitar manipulaciones (como quitar la pila CMOS).</li>
+<li><strong>Guardar los cambios solo con contraseña:</strong> En algunas BIOS puedes exigir la contraseña del administrador antes de guardar cualquier cambio.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="3. Protección física adicional" duration="0">
+        <p>Aunque la configuración del firmware aumenta la seguridad, sigue siendo importante proteger el equipo físicamente y guardarlos en sitios seguros.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="4. Consideraciones sobre el reseteo de la BIOS" duration="0">
+        <p>Una cosa a tener en cuenta es que algunas placas base permiten borrar la configuración de la BIOS retirando la <strong>pila CMOS</strong> o mediante <strong>pines Clear CMOS</strong>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="5. Conclusión" duration="0">
+        <p>Con estos pasos se logra un <strong>bastionado eficaz de la BIOS/UEFI</strong>, reduciendo drásticamente las posibilidades de que un atacante acceda al sistema o manipule el proceso de arranque.<br> Aunque ninguna medida es infalible, una correcta configuración del combinada con cifrado de disco y medidas físicas constituye una defensa sólida frente a accesos no autorizados.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
